@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="src/Amrod.Application/Amrod.Application.csproj" />
+  <Project Path="src/Amrod.Domain/Amrod.Domain.csproj" />
+  <Project Path="src/Amrod.Infrastructure/Amrod.Infrastructure.csproj" />
+  <Project Path="src/Amrod.WebApi/Amrod.WebApi.csproj" />
+</Solution>
