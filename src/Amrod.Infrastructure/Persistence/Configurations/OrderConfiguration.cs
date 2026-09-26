@@ -12,6 +12,6 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.Property(o => o.CurrencyCode).HasMaxLength(3).IsUnicode(false);
         builder.Property(o => o.RowVersion).IsRowVersion();
         
-        builder.HasIndex(o => new { o.Customer, o.Status, o.CreatedAt });
+        builder.HasIndex(o => new { o.CustomerId, o.Status, o.CreatedAt });
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Amrod.Infrastructure.Interceptors;
+﻿namespace Amrod.Domain.Interceptors;
 
 public interface IAuditableEntity
 {

@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Amrod.Infrastructure.Interceptors;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Amrod.Infrastructure.Interceptors;
+namespace Amrod.Domain.Interceptors;
 
 public sealed class SoftDeleteEntity : SaveChangesInterceptor
 {

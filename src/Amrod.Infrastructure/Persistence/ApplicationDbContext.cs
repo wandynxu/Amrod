@@ -11,11 +11,17 @@ public class ApplicationDbContext: DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-         modelBuilder.Entity<Order>()
+        
+        modelBuilder.Entity<Order>()
             .HasOne(o => o.Customer)
             .WithMany()
             .HasForeignKey(o => o.CustomerId);
         
+        modelBuilder.Entity<OrderLineItem>()
+             .HasOne(oli => oli.Order)
+             .WithMany()
+             .HasForeignKey(oli => oli.OrderId); 
+         
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }
