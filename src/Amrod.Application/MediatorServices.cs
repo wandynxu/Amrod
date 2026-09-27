@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Amrod.Application.Utils;
+namespace Amrod.Application;
 
-public static class DIMediatorServices
+public static class MediatorServices
 {
     public static IServiceCollection AddMediatorServices(this IServiceCollection services)
     {

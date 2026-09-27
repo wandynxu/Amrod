@@ -13,43 +13,33 @@ public class CustomerEndpoints: ICarterModule
 
         groupEndpoints.MapPost("/create", async (CreateCustomerCommand command, CancellationToken ct) =>
         {
-            Create(command);
+            await Create(command,ct);
         });
         
         groupEndpoints.MapPost("/search", async (SearchCustomerCommand command,CancellationToken ct) =>
         {
-            Search(command);
-        });
-        
-        groupEndpoints.MapGet("/all", async (CancellationToken ct) =>
-        {
-            GetAll();
+            await Search(command,ct);
         });
         
         groupEndpoints.MapGet("/{id:guid}", async (Guid id, CancellationToken ct) =>
         {
-            GetById(id);
+            await GetById(id, ct);
         });
         
     }
     
-    private static IResult Create(CreateCustomerCommand command)
+    private static async Task<IResult> Create(CreateCustomerCommand command, CancellationToken ct)
     {
         
         return Results.Ok();
     }
     
-    private static IResult Search(SearchCustomerCommand command)
+    private static async Task<IResult> Search(SearchCustomerCommand command, CancellationToken ct)
     {
         return Results.Ok();
     }
     
-    private static IResult GetAll()
-    {
-        return Results.Ok();
-    }
-    
-    private static IResult GetById(Guid id)
+    private static async Task<IResult> GetById(Guid id, CancellationToken ct)
     {
         return Results.Ok();
     }
