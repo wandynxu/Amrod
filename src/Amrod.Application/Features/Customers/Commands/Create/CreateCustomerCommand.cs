@@ -1,6 +1,8 @@
-﻿namespace Amrod.Application.Features.Customers.Commands.Create;
+﻿using MediatR;
 
-public record CreateCustomerDto
+namespace Amrod.Application.Features.Customers.Commands.Create;
+
+public record CreateCustomerCommand  : IRequest
 {
     public required string Name { get; init; }
     public required string Email { get; init; }

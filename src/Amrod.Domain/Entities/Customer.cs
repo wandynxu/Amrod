@@ -6,9 +6,9 @@ namespace Amrod.Domain.Entities;
 
 public sealed class Customer : BaseEntity, IAuditableEntity, ISoftDeleteEntity
 {
-    public required string Name { get; set; }
-    public required string Email { get; set; }
-    public required string CountryCode { get; set; } 
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public string CountryCode { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
     public DateTime? ModifiedAt { get; set; }
     public bool IsDeleted { get; set; }

@@ -1,6 +1,11 @@
-﻿namespace Amrod.Application.Features.Customers.Commands.Create;
+﻿using MediatR;
 
-public class CreateCustomerCommandHandler
+namespace Amrod.Application.Features.Customers.Commands.Create;
+
+public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand>
 {
-    
+    public Task Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }
