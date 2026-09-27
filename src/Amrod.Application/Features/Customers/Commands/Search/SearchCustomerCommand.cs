@@ -1,6 +1,6 @@
 ﻿namespace Amrod.Application.Features.Customers.Commands.Search;
 
-public record SearchCustomerDto
+public record SearchCustomerCommand
 {
      public string? Name { get; init; }
      public string? Email { get; init; }
