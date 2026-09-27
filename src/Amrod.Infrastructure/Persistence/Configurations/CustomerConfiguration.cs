@@ -10,6 +10,6 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
         builder.Property(c => c.Name).HasMaxLength(100);
         builder.Property(c => c.Email).HasMaxLength(100);
-        builder.Property(c => c.CountryCode).HasMaxLength(3).IsUnicode(false);
+        builder.Property(c => c.CountryCode).HasMaxLength(2).IsUnicode(false);
     }
 }
