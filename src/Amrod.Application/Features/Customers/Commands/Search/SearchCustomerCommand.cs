@@ -1,9 +1,7 @@
-﻿namespace Amrod.Application.Features.Customers.Commands.Search;
+﻿using MediatR;
 
-public record SearchCustomerCommand
+namespace Amrod.Application.Features.Customers.Commands.Search;
+
+public record SearchCustomerCommand(string[] Columns, string? SearchTerm, int Page, int PageSize) : IRequest
 {
-     public string? Name { get; init; }
-     public string? Email { get; init; }
-     public int Page { get; init; }
-     public int PageSize { get; init; }
-};
+}

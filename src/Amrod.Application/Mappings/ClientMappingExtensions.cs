@@ -5,7 +5,7 @@ namespace Amrod.Application.Mappings;
 
 public static class CustomerMappingExtensions
 {
-    public static Customer ToCustomerCommand(this CustomerDto customerDto)
+    public static Customer ToCustomer(this CustomerDto customerDto)
     {
         return new Customer
         {
