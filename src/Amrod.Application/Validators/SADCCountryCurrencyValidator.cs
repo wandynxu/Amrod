@@ -1,6 +1,6 @@
-﻿namespace Amrod.Application.Utils;
+﻿namespace Amrod.Application.Validators;
 
-public static class SadcCountryCurrencyValidate
+public static class SADCCountryCurrencyValidator
 {
     // Thread-safe dictionary mapping SADC Country Codes (Alpha-2) to official Currency Codes (ISO 4217)
     private static readonly Dictionary<string, HashSet<string>> SadcCountryCurrencyMap = 

@@ -2,9 +2,16 @@
 
 namespace Amrod.Application.Features.Customers.Commands.Create;
 
-public record CreateCustomerCommand  : IRequest
+public class CreateCustomerCommand  : IRequest
 {
-    public required string Name { get; init; }
-    public required string Email { get; init; }
-    public required string CountryCode { get; init; } 
+    public string Name { get; private set; }
+    public string Email { get; private set; }
+    public string CountryCode { get; private set; }
+
+    public CreateCustomerCommand(string name, string email, string countryCode)
+    {
+        Name = name;
+        Email = email;
+        CountryCode = countryCode;
+    }
 }
