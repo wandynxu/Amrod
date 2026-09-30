@@ -1,10 +1,11 @@
-﻿using MediatR;
+﻿using Amrod.Application.Features.Customers.Dtos;
+using MediatR;
 
 namespace Amrod.Application.Features.Customers.Commands.Search;
 
-public sealed class SearchCustomersCommandHandler: IRequestHandler<SearchCustomerCommand>
+public sealed class SearchCustomersCommandHandler: IRequestHandler<SearchCustomerCommand, IReadOnlyList<CustomerDto>>
 {
-    public async Task Handle(SearchCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<CustomerDto>> Handle(SearchCustomerCommand request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

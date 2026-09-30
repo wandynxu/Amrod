@@ -40,7 +40,7 @@ public static class CountryCurrencyCodes
         ("Mauritius", "MU", ["MUR"]),
         ("Morocco", "MA", ["MAD"]),
         ("Mozambique", "MZ", ["MZN"]),
-        ("Namibia", "NA", ["NAD, ZAR"]),
+        ("Namibia", "NA", ["NAD", "ZAR"]),
         ("Niger", "NE", ["XOF"]),
         ("Nigeria", "NG", ["NGN"]),
         ("Rwanda", "RW", ["RWF"]),
@@ -57,7 +57,7 @@ public static class CountryCurrencyCodes
         ("Tunisia", "TN", ["TND"]),
         ("Uganda", "UG", ["UGX"]),
         ("Zambia", "ZM", ["ZMW"]),
-        ("Zimbabwe", "ZW", ["ZWL, USD"])
+        ("Zimbabwe", "ZW", ["ZWL", "USD"])
     ];
 
 }
