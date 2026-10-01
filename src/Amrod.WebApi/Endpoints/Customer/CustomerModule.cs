@@ -24,13 +24,18 @@ public class CustomerModule: ICarterModule
                 return Results.BadRequest(errors);
             }
             
-            await mediator.Send(new CreateCustomerCommand(customerDto.Name, customerDto.Email, customerDto.CountryCode),ct);
+            await mediator.Send(new CreateCustomerCommand
+            {
+                Name = customerDto.Name, 
+                Email = customerDto.Email, 
+                CountryCode = customerDto.CountryCode
+            },ct);
             
             return Results.Ok();
         }).WithName("CreateCustomer").IncludeInOpenApi();
         
         
-        groupEndpoints.MapPost("/search", async (CustomerSearchDto customerSearchDto, IMediator mediator, CancellationToken ct) =>
+        groupEndpoints.MapGet("", async ([AsParameters]CustomerSearchDto customerSearchDto, IMediator mediator, CancellationToken ct) =>
         {
             
         }).WithName("SearchCustomer").IncludeInOpenApi();
