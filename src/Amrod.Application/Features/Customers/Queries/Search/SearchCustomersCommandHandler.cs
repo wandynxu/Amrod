@@ -1,7 +1,7 @@
 ﻿using Amrod.Application.Features.Customers.Dtos;
 using MediatR;
 
-namespace Amrod.Application.Features.Customers.Commands.Search;
+namespace Amrod.Application.Features.Customers.Queries.Search;
 
 public sealed class SearchCustomersCommandHandler: IRequestHandler<SearchCustomerCommand, IReadOnlyList<CustomerDto>>
 {

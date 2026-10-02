@@ -4,15 +4,13 @@ namespace Amrod.Infrastructure.Persistence;
 
 public interface IRepository<TEntity> where TEntity : class
 {
-    Task<TEntity?> GetByIdAsync(Guid id);
     
     void Create(TEntity entity);
     
     void Update(TEntity entity);
+    Task Delete(Guid id);
     
-    //Include Related Entity
-    IQueryable<TEntity> Get();
-    Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>>? filter = null);
+    Task<TEntity?> GetByFilterAsync(Expression<Func<TEntity, bool>>? filter = null);
     IQueryable<TEntity> SearchEntity();
     
 }

@@ -8,14 +8,9 @@ public sealed class Repository<TEntity>(ApplicationDbContext context) : IReposit
 {
     private readonly DbSet<TEntity> _dbSet = context.Set<TEntity>();
     
-    public async Task<TEntity?> GetByIdAsync(Guid id)
-    {
-        return await _dbSet.FindAsync(id);
-    }
-    
     public void Create(TEntity entity)
     {
-          _dbSet.AddAsync(entity);
+          _dbSet.Add(entity);
     }
 
     public void Update(TEntity entity)
@@ -25,34 +20,17 @@ public sealed class Repository<TEntity>(ApplicationDbContext context) : IReposit
         _dbSet.Update(entity);
         
     }
-    
-    //Include Related Entity
-    public IQueryable<TEntity> Get()
-    {
-            
-        IQueryable<TEntity> query = _dbSet;
-        /*
-        if (!string.IsNullOrWhiteSpace(request.RelatedEntity))
-        {
-            query = query.Include(request.RelatedEntity); 
-        }
 
-        if (!string.IsNullOrWhiteSpace(request.OrderByColumn))
+    public async Task Delete(Guid id)
+    {
+        var entity = await _dbSet.FindAsync(id);
+        if (entity is not null)
         {
-            var filter = PredicateBuilderOrderBy<TEntity>(request.OrderByColumn);
-            query = query.OrderBy(filter);
+            _dbSet.Remove(entity);    
         }
-            
-        var totalCount = query.Count();
-        var skip = (request.PageNumber - 1) * request.PageSize;
-        query = query.Skip(skip).Take(request.PageSize);
-        
-        query = query.AsNoTracking();
-        */
-        return query.AsQueryable();
     }
     
-    public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>>? filter = null)
+    public async Task<TEntity?> GetByFilterAsync(Expression<Func<TEntity, bool>>? filter = null)
     {
         IQueryable<TEntity> query = _dbSet;
         
@@ -66,6 +44,8 @@ public sealed class Repository<TEntity>(ApplicationDbContext context) : IReposit
         return await query.FirstOrDefaultAsync();
     }
 
+    
+    
     public IQueryable<TEntity> SearchEntity()
     {
         IQueryable<TEntity> query = _dbSet;

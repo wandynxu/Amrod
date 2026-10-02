@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Amrod.Application.Features.Customers.Commands.Create;
 
-public class CreateCustomerCommandHandler(IUnitOfWork unitOfWork) : IRequestHandler<CreateCustomerCommand, bool>
+public sealed class CreateCustomerCommandHandler(IUnitOfWork unitOfWork) : IRequestHandler<CreateCustomerCommand, bool>
 {
     public async Task<bool> Handle(CreateCustomerCommand request, CancellationToken ct)
     {
@@ -16,7 +16,7 @@ public class CreateCustomerCommandHandler(IUnitOfWork unitOfWork) : IRequestHand
             CountryCode = request.CountryCode
         };
         
-        var customerExist = await unitOfWork.GetRepository<Customer>().GetAsync(c => c.Email == customer.Email) is not null;
+        var customerExist = await unitOfWork.GetRepository<Customer>().GetByFilterAsync(c => c.Email == customer.Email) is not null;
         if (customerExist) return true;
         
          unitOfWork.GetRepository<Customer>().Create(customer);
