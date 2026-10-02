@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Amrod.Application.Features.Customers.Queries.GetById;
 
-public sealed class CustomerByIdQueryHandler(IUnitOfWork unitOfWork): IRequestHandler<GetCustomerByIdQuery, CustomerDto?>
+public sealed class GetCustomerByIdQueryHandler(IUnitOfWork unitOfWork): IRequestHandler<GetCustomerByIdQuery, CustomerDto?>
 {
     public async Task<CustomerDto?> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
     {

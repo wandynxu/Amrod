@@ -19,7 +19,7 @@ public sealed class CreateCustomerCommandHandler(IUnitOfWork unitOfWork) : IRequ
         var customerExist = await unitOfWork.GetRepository<Customer>().GetByFilterAsync(c => c.Email == customer.Email) is not null;
         if (customerExist) return true;
         
-         unitOfWork.GetRepository<Customer>().Create(customer);
+         await unitOfWork.GetRepository<Customer>().Create(customer);
          await unitOfWork.CommitAsync();
          return false;
     }

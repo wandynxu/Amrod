@@ -20,7 +20,7 @@ public class CustomerModule: ICarterModule
         {
             var validationResult = await validator.ValidateAsync(customerDto,ct);
             if (!validationResult.IsValid)
-            {
+            { 
                 var errors = validationResult.Errors
                     .ToDictionary(e => e.PropertyName, e => e.ErrorMessage);
                 return Results.BadRequest(errors);
@@ -44,8 +44,7 @@ public class CustomerModule: ICarterModule
                 Search = customerSearchDto.Search,
                 Page = customerSearchDto.Page,
                 PageSize = customerSearchDto.PageSize,
-                Sort = customerSearchDto.Sort,
-                Columns = customerSearchDto.Columns
+                Sort = customerSearchDto.Sort
             }, ct);
             
             return Results.Ok(customers);

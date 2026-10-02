@@ -1,16 +1,16 @@
 ﻿using System.Linq.Expressions;
+using Amrod.Infrastructure.Models;
 
 namespace Amrod.Infrastructure.Persistence;
 
 public interface IRepository<TEntity> where TEntity : class
 {
     
-    void Create(TEntity entity);
-    
+    Task Create(TEntity entity);
     void Update(TEntity entity);
-    Task Delete(Guid id);
+    void Delete(TEntity entity);
     
     Task<TEntity?> GetByFilterAsync(Expression<Func<TEntity, bool>>? filter = null);
-    IQueryable<TEntity> SearchEntity();
+    IQueryable<TEntity> SearchEntity(SearchRequest request);
     
 }
