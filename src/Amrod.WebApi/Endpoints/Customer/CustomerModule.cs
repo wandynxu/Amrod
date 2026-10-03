@@ -57,7 +57,7 @@ public class CustomerModule: ICarterModule
             {
                 Id = id
             }, ct);
-
+            
             return Results.Ok(customer);
         }).WithName("GetCustomer").IncludeInOpenApi();
         

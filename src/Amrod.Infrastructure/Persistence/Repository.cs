@@ -44,19 +44,18 @@ public sealed class Repository<TEntity>(ApplicationDbContext context) : IReposit
     {
         IQueryable<TEntity> query = _dbSet;
         
-        var searchString = request.Search;
         var columns = request.Columns;
         var page = request.Page; 
         var pageSize = request.PageSize;
         var sortOrder = request.Sort;
         
-        if(string.IsNullOrEmpty(searchString))
+        if(!request.SearchTerms.Any())
         {
             query = query.AsNoTracking();
-            return query.Order().Skip(page).Take(pageSize).AsQueryable();
+            return query.Order().Skip(0).Take(pageSize).AsExpandable();
         }
 
-        var filter = PredicateBuilderOrContains<TEntity>(searchString, columns);
+        var filter = PredicateBuilderOrContains<TEntity>(request.SearchTerms, columns);
         
         var totalCount = query.Count();
         
@@ -68,26 +67,37 @@ public sealed class Repository<TEntity>(ApplicationDbContext context) : IReposit
         
         query = query.AsNoTracking();
         
-        return query.AsQueryable();
+        return query.AsExpandable();
     }
     
-    private static Expression<Func<T, bool>> PredicateBuilderOrContains<T>(string searchString, string[] columns)
+    private static Expression<Func<T, bool>> PredicateBuilderOrContains<T>(string[] searchTerms, string[] columns)
     {
         var parameter = Expression.Parameter(typeof(T));
-        var predicate = PredicateBuilder.New<T>(false);
-        foreach (var column in columns)
+        
+        var predicate = PredicateBuilder.New<T>(true);
+        var efFunctionsInstance = Expression.Constant(EF.Functions);
+        
+        var likeMethod = typeof(DbFunctionsExtensions).GetMethod(
+            nameof(DbFunctionsExtensions.Like),
+            [typeof(DbFunctions), typeof(string), typeof(string)]
+        );
+        
+        if (likeMethod is not null)
         {
-            var property = Expression.Property(parameter, column);
-            
-            var entityColumnName = EF.Property<string>(property, column);
-            
-            //var caseInsensitiveExpression = EF.Functions.Collate(entityColumnName, "SQL_Latin1_General_CP1_CI_AS");
-            
-            //predicate = predicate.Or(e => EF.Functions.Like(caseInsensitiveExpression, $"{searchString}%"));
-            //var likeExpression = EF.Functions.Like(, $"{searchString}%");
-            
-            //predicate = predicate.Or();
-            
+            foreach (var searchString in searchTerms)
+            {
+                var orPredicate = PredicateBuilder.New<T>(false);
+                foreach (var column in columns)
+                {
+                    var exprCall = Expression.Call(null,likeMethod, efFunctionsInstance, Expression.Property(parameter, column), Expression.Constant($"%{searchString}%"));
+                    
+                    var lambda = Expression.Lambda<Func<T, bool>>(exprCall, parameter);
+                    orPredicate = orPredicate.Or(lambda);
+                }
+                
+                predicate  = predicate.And(orPredicate);
+                
+            }    
         }
         
         return predicate;

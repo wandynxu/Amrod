@@ -14,8 +14,8 @@ public sealed class SearchCustomersCommandHandler(IUnitOfWork unitOfWork): IRequ
     {
         var searchRequest = new SearchRequest
         {
-            Search = request.Search ?? string.Empty,
-            Page = request.Page ?? 0,
+            SearchTerms = !string.IsNullOrWhiteSpace(request.Search) ? [request.Search] :  [],
+            Page = request.Page ?? 1,
             PageSize = request.PageSize ?? 100,
             Sort = request.Sort ?? "asc",
             Columns = request.Columns
