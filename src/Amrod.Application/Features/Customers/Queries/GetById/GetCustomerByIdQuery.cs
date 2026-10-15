@@ -1,4 +1,4 @@
-﻿using Amrod.Application.Features.Customers.Dtos;
+﻿using Amrod.Application.Features.DTOs;
 using MediatR;
 
 namespace Amrod.Application.Features.Customers.Queries.GetById;

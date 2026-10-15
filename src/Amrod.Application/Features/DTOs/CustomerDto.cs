@@ -1,4 +1,4 @@
-﻿namespace Amrod.Application.Features.Customers.Dtos;
+﻿namespace Amrod.Application.Features.DTOs;
 
 public record CustomerDto
 {

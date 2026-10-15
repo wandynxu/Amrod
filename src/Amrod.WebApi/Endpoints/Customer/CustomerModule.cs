@@ -1,13 +1,12 @@
 ﻿using Amrod.Application.Features.Customers.Commands.Create;
-using Amrod.Application.Features.Customers.Dtos;
+using Amrod.Application.Features.Customers.Commands.Search;
 using Amrod.Application.Features.Customers.Queries.GetById;
-using Amrod.Application.Features.Customers.Queries.Search;
+using Amrod.Application.Features.DTOs;
 using Carter;
 using Carter.OpenApi;
 using FluentValidation;
 using MediatR;
 
-namespace Amrod.WebApi.Endpoints.Customer;
 
 public class CustomerModule: ICarterModule
 {
@@ -37,14 +36,15 @@ public class CustomerModule: ICarterModule
         }).WithName("CreateCustomer").IncludeInOpenApi();
         
         
-        groupEndpoints.MapGet("", async ([AsParameters]CustomerSearchDto customerSearchDto, IMediator mediator, CancellationToken ct) =>
+        groupEndpoints.MapGet("", async ([AsParameters]SearchDto searchDto, IMediator mediator, CancellationToken ct) =>
         {
-            var customers = await mediator.Send(new SearchCustomerCommand
+            var customers = await mediator.Send(new SearchCustomersCommand
             {
-                Search = customerSearchDto.Search,
-                Page = customerSearchDto.Page,
-                PageSize = customerSearchDto.PageSize,
-                Sort = customerSearchDto.Sort
+                Search = searchDto.Search,
+                Page = searchDto.Page,
+                PageSize = searchDto.PageSize,
+                Sort = searchDto.Sort,
+                OrderBy = searchDto.OrderBy
             }, ct);
             
             return Results.Ok(customers);

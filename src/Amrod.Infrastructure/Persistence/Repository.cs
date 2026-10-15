@@ -16,15 +16,24 @@ public sealed class Repository<TEntity>(ApplicationDbContext context) : IReposit
 
     public void Update(TEntity entity)
     {
-        
-        _dbSet.Update(entity);
+        _dbSet.Attach(entity);
+        context.Entry(entity).State = EntityState.Modified;
     }
 
     public void Delete(TEntity entity)
     {
+        if (context.Entry(entity).State == EntityState.Detached)
+        {
+            _dbSet.Attach(entity);
+        }
         _dbSet.Remove(entity);
     }
-    
+
+    public async Task<TEntity?> GetByIdAsync(Guid id)
+    {
+        return await _dbSet.FindAsync(id);
+    }
+
     public async Task<TEntity?> GetByFilterAsync(Expression<Func<TEntity, bool>>? filter = null)
     {
         IQueryable<TEntity> query = _dbSet;
@@ -57,8 +66,6 @@ public sealed class Repository<TEntity>(ApplicationDbContext context) : IReposit
 
         var filter = PredicateBuilderOrContains<TEntity>(request.SearchTerms, columns);
         
-        var totalCount = query.Count();
-        
         var skip = (page - 1) * pageSize;
         
         query = query.Where(filter);
@@ -69,7 +76,7 @@ public sealed class Repository<TEntity>(ApplicationDbContext context) : IReposit
         
         return query.AsExpandable();
     }
-    
+
     private static Expression<Func<T, bool>> PredicateBuilderOrContains<T>(string[] searchTerms, string[] columns)
     {
         var parameter = Expression.Parameter(typeof(T));
