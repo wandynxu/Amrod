@@ -6,12 +6,12 @@ using Amrod.Infrastructure.Models;
 using Amrod.Infrastructure.Persistence;
 using MediatR;
 
-namespace Amrod.Application.Features.Customers.Commands.Search;
+namespace Amrod.Application.Features.Customers.Queries.GetCustomers;
 
-public sealed class SearchCustomersCommandHandler(IRepository<Customer> repository) : IRequestHandler<SearchCustomersCommand, IReadOnlyList<CustomerDto>>
+internal sealed class GetCustomersQueryHandler(IRepository<Customer> repository) : IRequestHandler<GetCustomersQuery, IReadOnlyList<CustomerDto>>
 {
     
-    public async Task<IReadOnlyList<CustomerDto>> Handle(SearchCustomersCommand request, CancellationToken ct)
+    public async Task<IReadOnlyList<CustomerDto>> Handle(GetCustomersQuery request, CancellationToken ct)
     {
         var searchRequest = new SearchRequest
         {

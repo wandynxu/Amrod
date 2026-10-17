@@ -4,9 +4,9 @@ using Amrod.Domain.Entities;
 using Amrod.Infrastructure.Persistence;
 using MediatR;
 
-namespace Amrod.Application.Features.Customers.Queries.GetById;
+namespace Amrod.Application.Features.Customers.Queries.GetCustomerById;
 
-public sealed class GetCustomerByIdQueryHandler(IRepository<Customer> repository): IRequestHandler<GetCustomerByIdQuery, CustomerDto?>
+internal sealed class GetCustomerByIdQueryHandler(IRepository<Customer> repository): IRequestHandler<GetCustomerByIdQuery, CustomerDto?>
 {
     public async Task<CustomerDto?> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
     {

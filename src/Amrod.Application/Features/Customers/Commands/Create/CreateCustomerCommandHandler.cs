@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Amrod.Application.Features.Customers.Commands.Create;
 
-public sealed class CreateCustomerCommandHandler(IRepository<Customer> repository,ApplicationDbContext context) : IRequestHandler<CreateCustomerCommand, bool>
+internal sealed class CreateCustomerCommandHandler(IRepository<Customer> repository,ApplicationDbContext context) : IRequestHandler<CreateCustomerCommand, bool>
 {
     public async Task<bool> Handle(CreateCustomerCommand request, CancellationToken ct)
     {

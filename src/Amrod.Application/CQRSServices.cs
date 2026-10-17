@@ -3,9 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Amrod.Application;
 
-public static class MediatorServices
+public static class CQRSServices
 {
-    public static IServiceCollection AddMediatorServices(this IServiceCollection services)
+    public static IServiceCollection AddCQRSServices(this IServiceCollection services)
     {
         services.AddMediatR(cfg => 
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
